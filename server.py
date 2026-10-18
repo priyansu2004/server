@@ -27,7 +27,10 @@ def _load_dotenv() -> None:
 
 _load_dotenv()
 
-mcp = FastMCP("expense-tracker")
+mcp = FastMCP(
+    "expense-tracker",
+    instructions="Available tools: add_expense (create/add/log a new expense entry), list_expenses, update_expense, delete_expense, get_expense_analytics, signin_user, signup_user. Always call add_expense to add or create new expenses.",
+)
 
 IST = ZoneInfo("Asia/Kolkata")
 DEFAULT_MONTHLY_INCOME = 19800.0
@@ -217,7 +220,7 @@ def add_expense(
     exact_time: str = "",
     api_key: str = "",
 ) -> dict[str, Any]:
-    """Add a day-to-day expense, received money, or nil entry (category must be 1-2 words like Dinner, Lunch, Investments, Party)."""
+    """Create, add, log, or record a new expense entry for the authenticated user (category must be 1-2 words)."""
     _get_profile(api_key or None)
     row = validate_expense(
         {
@@ -247,7 +250,7 @@ def list_expenses(
     limit: int = 200,
     api_key: str = "",
 ) -> dict[str, Any]:
-    """List expenses for the authenticated user with exact date, time, category, description, spent_where, and received_from."""
+    """List expenses for the authenticated user (use add_expense to create new entries)."""
     _get_profile(api_key or None)
     params: list[tuple[str, str]] = [
         ("select", "*"),
