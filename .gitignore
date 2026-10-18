@@ -1,0 +1,11 @@
+# Never commit secrets or environment files
+.env
+.env.*
+!.env.example
+
+# Python & virtual environments
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
