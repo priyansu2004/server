@@ -423,4 +423,9 @@ def get_expense_analytics(month: str = "", date: str = "", api_key: str = "") ->
 
 
 if __name__ == "__main__":
-    mcp.run()
+    port = os.environ.get("PORT")
+    if port or os.environ.get("MCP_TRANSPORT") == "http":
+        mcp.run(transport="http", host="0.0.0.0", port=int(port or 8000))
+    else:
+        mcp.run()
+
